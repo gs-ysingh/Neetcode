@@ -1,4 +1,4 @@
-var canFinish = function(numCourses, prerequisites) {
+var findOrder = function(numCourses, prerequisites) {
     const graph = Array(numCourses).fill(0).map(() => []);
     const inDegree = Array(numCourses).fill(0);
 
@@ -30,8 +30,8 @@ var canFinish = function(numCourses, prerequisites) {
         });
     }
 
-    return sortOrder.length === numCourses;
+    if(sortOrder.length !== numCourses) {
+        return [];
+    }
+    return sortOrder;
 };
-
-console.log(canFinish(2, [[1,0]])); // true
-console.log(canFinish(2, [[1,0],[0,1]])); // false
