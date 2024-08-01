@@ -11,7 +11,7 @@ var permute = function(nums) {
 
     for(let i = 0; i < rest.length; i++) {
         const arr = rest[i];
-        for(let j = 0; j <= rest[i].length; j++) {
+        for(let j = 0; j <= arr.length; j++) {
             const newArr = arr.slice(0, j).concat(first, arr.slice(j));
             result.push([...newArr]);
         }
