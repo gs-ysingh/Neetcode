@@ -1,7 +1,6 @@
 var subsets = function(nums) {
     const result = [];
     function dfs(index, subset) {
-        debugger
         if(index >= nums.length) {
             result.push(subset);
             return;
