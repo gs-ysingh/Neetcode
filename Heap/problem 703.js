@@ -5,9 +5,9 @@ var KthLargest = function(k, nums) {
     this.k = k;
     for(let i = 0; i < nums.length; i++) {
         this.minHeap.enqueue(nums[i]);
-    }
-    while(this.minHeap.size() > this.k) {
-        this.minHeap.dequeue().element;
+        if(this.minHeap.size() > this.k) {
+            this.minHeap.dequeue().element;
+        }
     }
 };
 
