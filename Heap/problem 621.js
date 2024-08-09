@@ -25,7 +25,7 @@ var leastInterval = function(tasks, n) {
             }
         }
         if(queue.length > 0 && queue[0][1] === time) {
-            const [freq, next] = queue.shift();
+            const [freq] = queue.shift();
             maxHeap.enqueue(freq);
         }    
     }
