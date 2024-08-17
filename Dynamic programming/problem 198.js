@@ -21,6 +21,24 @@ var rob = function(nums) {
 };
 
 
+// Solution did not work for large inputs
+var rob = function(nums) {
+    const n = nums.length;
+    const mem = {};
+    function robHouse(i) {
+        if (i >= n) {
+            return 0;
+        }
+        if (mem[i]) {
+            return mem[i];
+        }
+        mem[i] = Math.max(nums[i] + robHouse(i + 2), robHouse(i + 1));
+        return mem[i];
+    }
+    return Math.max(robHouse(0), robHouse(1));
+};
+
+
 // This solution works for all inputs
 var rob = function(nums) {
     if (nums.length === 0) return 0;

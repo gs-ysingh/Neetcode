@@ -1,4 +1,20 @@
 var minCostClimbingStairs = function(cost) {
+    var mem = new Array(cost.length + 1).fill(null);
+    const n = cost.length;
+    function minCost(i) {
+        if (i >= n) {
+            return 0;
+        }
+        if (mem[i] !== null) {
+            return mem[i];
+        }
+        mem[i] = Math.min(minCost(i + 1) + cost[i], minCost(i + 2) + cost[i]);
+        return mem[i];
+    }
+    return Math.min(minCost(0), minCost(1));
+};
+
+var minCostClimbingStairs = function(cost) {
     // Create a dp array initialized with null values
     var dp = new Array(cost.length + 1).fill(null);
     
