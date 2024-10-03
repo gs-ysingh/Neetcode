@@ -15,4 +15,4 @@ var subsets = function(nums) {
     return result;
 };
 
-console.log(subsets([1,2,3]))
+console.log(subsets([1,2,3]));
