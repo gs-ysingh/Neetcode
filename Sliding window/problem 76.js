@@ -1,53 +1,49 @@
 function minWindow(s, t) {
-    if (t.length > s.length) return ""; // Edge case: t is larger than s
-    
-    const charCount = new Map();
-    
-    // Build a frequency map for t
-    for (let char of t) {
-        charCount.set(char, (charCount.get(char) || 0) + 1);
+    if (t.length > s.length) {
+        return "";
     }
+
+    const tMap = new Map();
+    let l = 0;
+    let r = 0;
+    let min = Infinity;
+    let ans = [-1, 0, 0]; // -1 is for length tracking
     
-    let required = charCount.size;  // Number of unique characters in t to be matched
-    let left = 0, right = 0;        // Window pointers
-    let formed = 0;                 // How many unique characters in t are met in the current window
-    let windowCounts = new Map();   // Map to store frequency of characters in the current window
-    let minLen = Infinity;          // Length of the minimum window
-    let ans = [-1, 0, 0];           // Start and end of the minimum window
-    
-    while (right < s.length) {
-        let char = s[right];
-        windowCounts.set(char, (windowCounts.get(char) || 0) + 1);
-        
-        // If the current character's count matches the required count in t
-        if (charCount.has(char) && windowCounts.get(char) === charCount.get(char)) {
+    for (const c of t) {
+        tMap.set(c, (tMap.get(c) || 0) + 1);
+    }
+
+    const required = tMap.size;
+    let formed = 0;
+
+    const sMap = new Map();
+
+    while (r < s.length) {
+        const c = s.charAt(r);
+        sMap.set(c, (sMap.get(c) || 0) + 1);
+
+        if (tMap.has(c) && sMap.get(c) === tMap.get(c)) {
             formed++;
         }
-        
-        // Try to contract the window until it no longer contains all characters of t
-        while (left <= right && formed === required) {
-            char = s[left];
-            
-            // Save the smallest window
-            if (right - left + 1 < minLen) {
-                minLen = right - left + 1;
-                ans = [left, right];
+
+        while (formed === required) {
+            if (r - l + 1 < min) {
+                min = r - l + 1;
+                ans = [min, l, r];
             }
-            
-            // Shrink the window
-            windowCounts.set(char, windowCounts.get(char) - 1);
-            // and condition is required, because if we encounter another char that not resulted 
-            // decrease, we should not decrease formed
-            if (charCount.has(char) && windowCounts.get(char) < charCount.get(char)) {
+
+            const char = s.charAt(l);
+            sMap.set(char, sMap.get(char) - 1);
+
+            if (tMap.has(char) && sMap.get(char) < tMap.get(char)) {
                 formed--;
             }
-            
-            left++;
+
+            l++;
         }
-        
-        // Expand the window
-        right++;
+
+        r++;
     }
-    
-    return ans[0] === -1 ? "" : s.slice(ans[0], ans[1] + 1);
+
+    return ans[0] === -1 ? "" : s.substring(ans[1], ans[2] + 1);
 }

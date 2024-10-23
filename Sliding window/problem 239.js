@@ -20,3 +20,21 @@ var maxSlidingWindow = function(nums, k) {
 
     return result;
 };
+
+var maxSlidingWindow = function(nums, k) {
+    const maxHeap = new MaxPriorityQueue();
+    const result = [];
+
+    for (let i = 0; i < nums.length; i++) {
+        maxHeap.enqueue(i, nums[i]);
+
+        if (i >= k - 1) {
+            while (maxHeap.front().element <= i - k) {
+                maxHeap.dequeue();
+            }
+
+            result.push(maxHeap.front().priority);
+        }
+    }
+    return result;
+};
