@@ -14,10 +14,7 @@ function DoublyLinkedList() {
 
 DoublyLinkedList.prototype.moveToHead = function(node) {
     this.removeNode(node);
-    node.next = this.head.next;
-    this.head.next.prev = node;
-    node.prev = this.head;
-    this.head.next = node;
+    this.addToHead(node);
 }
     
 DoublyLinkedList.prototype.getLastNode = function() {
