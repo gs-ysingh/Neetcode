@@ -25,7 +25,7 @@ function isCycle(graph, visited, node, parent) {
 				return true;
             }
         }
-        else if(item !== parent) {
+        else if(item !== parent) { // Easier to understand visited[item] && item !== parent
 	        return true;
         }
     }
